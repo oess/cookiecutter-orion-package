@@ -1,0 +1,9 @@
+global-exclude *.pyc
+include README.md
+include manifest.json
+include orion-requirements.txt
+exclude requirements.txt
+include setup.py
+include {{cookiecutter.module_name}}/*
+include floes/*
+include tests/*

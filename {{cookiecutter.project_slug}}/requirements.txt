@@ -1,0 +1,7 @@
+pytest
+invoke
+sphinx
+OpenEye-floe-pkg-tools
+sphinx_rtd_theme
+
+-e .

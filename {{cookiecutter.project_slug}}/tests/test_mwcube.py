@@ -1,5 +1,5 @@
 from unittest import TestCase
-from trai{{cookiecutter.module_name}}ning_package import MWCube, MWPropCube, ParallelMWPropCube
+from {{cookiecutter.module_name}} import MWCube, MWPropCube, ParallelMWPropCube
 from cuberecord import OERecordCubeTestRunner
 from datarecord import OERecord, OEPrimaryMolField
 from openeye.oechem import OESmilesToMol, OECalculateMolecularWeight, OEMol

@@ -1,5 +1,5 @@
 from unittest import TestCase
-from training_package import MWFilterCube, MixinExampleMWFilterCube
+from {{cookiecutter.module_name}} import MWFilterCube, MixinExampleMWFilterCube
 from cuberecord import OERecordCubeTestRunner
 from datarecord import OERecord, OEPrimaryMolField
 from openeye.oechem import OESmilesToMol, OEMol

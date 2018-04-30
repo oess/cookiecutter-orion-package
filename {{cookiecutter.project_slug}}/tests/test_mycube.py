@@ -1,5 +1,5 @@
 from unittest import TestCase
-from training_package import MyCube
+from {{cookiecutter.module_name}} import MyCube
 from cuberecord import OERecordCubeTestRunner
 from datarecord import OERecord
 

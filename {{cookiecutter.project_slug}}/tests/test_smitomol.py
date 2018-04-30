@@ -1,5 +1,5 @@
 from unittest import TestCase
-from training_package import SmiToMolCube
+from {{cookiecutter.module_name}} import SmiToMolCube
 from cuberecord import OERecordCubeTestRunner
 from datarecord import OERecord, OEField, Types
 

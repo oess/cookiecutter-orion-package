@@ -1,5 +1,5 @@
 from unittest import TestCase
-from training_package import MaxMWCube, MixinExampleMaxMWCube
+from {{cookiecutter.module_name}} import MaxMWCube, MixinExampleMaxMWCube
 from cuberecord import OERecordCubeTestRunner
 from datarecord import OERecord, OEPrimaryMolField
 from openeye.oechem import OESmilesToMol, OECalculateMolecularWeight, OEMol

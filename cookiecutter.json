@@ -1,7 +1,7 @@
 {
     "full_name": "MyName Here",
     "email": "myemail@mydomain.com",
-    "project_name": "My Orion Package",
+    "project_name": "Training Package",
     "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '-').replace('_', '-') }}",
     "module_name": "{{ cookiecutter.project_slug.replace('-', '_') }}",
     "description": "Description of my project",

@@ -4,8 +4,8 @@ from {{cookiecutter.module_name}} import MWCube
 
 
 # Declare and document floe
-my_floe = WorkFloe('my_floe')
-my_floe.title = "MW Floe"
+my_floe = WorkFloe('my_mw_floe')
+my_floe.title = "My MW Floe"
 my_floe.description = "Compute Molecular Weight Floe"
 my_floe.classification = [["Examples"]]
 my_floe.tags = ["Examples", "Molecules", "Properties"]

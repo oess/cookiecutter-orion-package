@@ -4,8 +4,8 @@ from {{cookiecutter.module_name}} import MyOmegaCube
 
 
 # Declare and document floe
-my_floe = WorkFloe('my_floe')
-my_floe.title = "My Floe"
+my_floe = WorkFloe('my_omega_floe')
+my_floe.title = "My Omega Floe"
 my_floe.description = "Floe that passes records through unchanged"
 my_floe.classification = [["Examples"]]
 my_floe.tags = ["Examples", "I didn't edit the tags"]

@@ -1,9 +1,7 @@
 OpenEye Cube/Floe Package CookieCutter Template
 ===============================================
 
-The easiest way to start a new package containing Cubes and Floes is to use this `Cookiecutter`_ template for Orion packages
-(located `here <https://github.com/oess/cookiecutter-orion-package>`_) using the following steps:
-
+A `Cookiecutter`_ template for Orion packages containing Cubes and Floes.
 
 Features
 --------
@@ -30,6 +28,8 @@ Setup
 1. `Install cookiecutter <https://cookiecutter.readthedocs.io/en/latest/installation.html>`_, usually via running ``pip install cookiecutter``
 
 2. run ``cookiecutter  gh:oess/cookiecutter-orion-package``
+
+    *Note:* running cookiecutter directly against the GitHub repository requires ``git`` to be locally installed. To install without requiring ``git``, download the ZIP file from `GitHub <https://github.com/oess/cookiecutter-orion-package>`_ and run  ``cookiecutter cookiecutter-orion-package-master.zip``
 
 3. After ``cookiecutter`` setup is completed run the following command to install all requirements and development requirements:
 

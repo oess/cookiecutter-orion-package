@@ -16,8 +16,8 @@
 # or its use.
 
 from floe.api import WorkFloe
-from cuberecord import (DataSetReaderCube,
-                        DataSetWriterCube)
+from cuberecord import (DatasetReaderCube,
+                        DatasetWriterCube)
 from {{cookiecutter.module_name}} import MyCube
 
 
@@ -29,9 +29,9 @@ my_floe.classification = [["Examples"]]
 my_floe.tags = ["Examples", "I didn't edit the tags"]
 
 # Declare Cubes
-input_cube = DataSetReaderCube('input_cube')
-switch_cube =MyCube('switch_cube')
-output_cube = DataSetWriterCube('output_cube')
+input_cube = DatasetReaderCube('input_cube')
+switch_cube = MyCube('switch_cube')
+output_cube = DatasetWriterCube('output_cube')
 
 # Add cubes to floe
 my_floe.add_cube(input_cube)

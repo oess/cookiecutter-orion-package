@@ -18,6 +18,7 @@
 import os
 import sys
 import shutil
+import multiprocessing
 from json import loads, dump
 from invoke import task, run
 from setuptools import convert_path
@@ -45,27 +46,14 @@ def package(ctx):
     """
     Create package
     """
-
-    # Get the requirements and version of the package
-    requirements = loads(run("python setup.py --requires", hide='both').stdout.strip("\n\r"))
-
     # Create the Orion packaging files
-    reqs_filename = convert_path("./orion-requirements.txt")
-    def clean_orion_package_files():
-        if os.path.isfile(reqs_filename):
-            os.remove(reqs_filename)
-    clean_orion_package_files()
-    with open(reqs_filename, "w") as reqs_file:
-        for req in requirements:
-            reqs_file.write(req)
-            reqs_file.write("\n")
-
+    _make_reqs_file()
     update_manifest(ctx)
     # Run standard python packaging, which will include the Orion packaging files we just created
     run("python setup.py sdist --formats=gztar")
 
     # Removed the Orion packaging files now that we are done with packaging
-    clean_orion_package_files()
+    _clean_orion_package_files()
 
 
 @task
@@ -108,12 +96,59 @@ def flint(ctx):
 
 
 @task
-def test(ctx):
+def test_cubes(ctx, opts="-s", xdist=True):
+    """
+    run cube tests
+    """
+    # clean_pyc(ctx)
+    if xdist:
+        try:
+            from xdist import __version__ as xver  # noqa
+            run("python -m pytest -n {} --tb=native -m 'not floetest' -p no:randomly {}".format(multiprocessing.cpu_count(), opts), pty=True)
+        except ImportError:
+            run("python -m pytest --tb=native {}".format(opts), pty=True)
+
+    else:
+        run("python -m pytest --tb=native {}".format(opts), pty=True)
+
+
+@task
+def test_floes(ctx, opts=""):
     """
     run tests
     """
+    # clean_pyc(ctx)
+    run("python -m pytest --tb=native -m 'floetest' tests/floe_tests {} ".format(opts), pty=True)
+
+
+@task
+def test_all(ctx, profile="default", opts=""):
+    """
+    run cube tests and then run floe tests locally and then floe tests against Orion
+    """
+    test(ctx, opts)
+    test_floes(ctx, opts)
+    test_orion(ctx, profile, opts)
+
+
+@task
+def test_orion(ctx, profile="", opts=""):
+    """
+    run tests
+    """
+
+    if profile is "":
+        if "ORION_PROFILE" in os.environ:
+            profile = os.getenv("ORION_PROFILE")
+        else:
+            profile = 'default'
+    print("Using Orion Profile: {}".format(profile))
     clean_pyc(ctx)
-    os.system("python -m pytest -s --tb=native")
+    clean(ctx)
+    update_manifest(ctx)
+    _make_reqs_file()
+    run("ORION_PROFILE={} python -m pytest -v -s --tb=native  -m 'floetest' --orion tests/floes/floe_tests {}".format(profile, opts), pty=True)
+    _clean_orion_package_files()
 
 
 @task
@@ -140,6 +175,17 @@ def clean(ctx):
         shutil.rmtree(egg_path)
 
 
+@task
+def clean_docs(ctx):
+    doc_dir = "docs/build/html"
+    _clean_out_dir(doc_dir)
+    # _clean_out_dir("docs/source/floes")
+    _clean_out_dir("docs/source/cubes")
+
+    if os.path.isdir("docs/build/doctrees"):
+        shutil.rmtree("docs/build/doctrees")
+
+
 def _clean_out_dir(dir_path):
     if os.path.isdir(dir_path):
         for the_file in os.listdir(dir_path):
@@ -153,4 +199,21 @@ def _clean_out_dir(dir_path):
                 print(e)
 
 
+def _make_reqs_file(reqs_filename="orion-requirements.txt"):
+    requirements = loads(run("python setup.py --requires", hide='both').stdout.strip("\n\r"))
+
+    # Create the Orion packaging files
+    reqs_path = convert_path("./{}".format(reqs_filename))
+
+    with open(reqs_path, "w") as reqs_file:
+        for req in requirements:
+            reqs_file.write(req)
+            reqs_file.write("\n")
+
+
+def _clean_orion_package_files(reqs_filename="orion-requirements.txt"):
+    # Create the Orion packaging files
+    reqs_path = convert_path("./{}".format(reqs_filename))
+    if os.path.isfile(reqs_path):
+        os.remove(reqs_path)
 

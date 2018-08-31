@@ -102,10 +102,14 @@ upon completion::
     ├── floes                                   <-- Subdirectory where all floes should be placed.
     │   └── myfloe.py                           <-- An example floe.
     ├── manifest.json                           <-- Manifest for Orion.
-    ├── requirements.txt                        <-- Requirements file for developers of this package.
+    ├── requirements_dev.txt                    <-- Requirements file for development of this package.
     ├── setup.py                                <-- Python file for creating a python package
     ├── tasks.py                                <-- Python file with defined tasks for building docs, running tests, and building the package.
     ├── tests                                   <-- Subdirectory for testing of cubes and floes.
+    │   ├── floe_tests                          <-- Subdirectory for floe tests
+    │   │   └── test_myfloe.py                  <-- Example floe test to run locally or in Orion
+    │   ├── test_data
+    │   │   └── 10.ism
     │   └── test_mycube.py                      <-- An example unit test for the included cube.
     └── {{cookiecutter.module_name}}            <-- Subdirectory of the package for the python module. All cubes should go in here.
         ├── __init__.py

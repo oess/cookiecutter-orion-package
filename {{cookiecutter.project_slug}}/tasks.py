@@ -23,10 +23,20 @@ from json import loads, dump
 from invoke import task, run
 from setuptools import convert_path
 
+xver = None
+pty = False
+if not sys.platform == 'win32':
+    pty = True
+    try:
+        from xdist import __version__ as xver  # noqa
+    except ImportError:
+        pass
+
 
 @task
 def flake8(ctx):
     run("flake8 --max-line-length 100 {{cookiecutter.module_name}}")
+
 
 @task
 def update_manifest(ctx):
@@ -38,7 +48,6 @@ def update_manifest(ctx):
     import {{cookiecutter.module_name}}
     spec['version'] = {{cookiecutter.module_name}}.__version__
     dump(spec, open('manifest.json', 'w'))
-
 
 
 @task
@@ -101,15 +110,10 @@ def test_cubes(ctx, opts="-s", xdist=True):
     run cube tests
     """
     # clean_pyc(ctx)
-    if xdist:
-        try:
-            from xdist import __version__ as xver  # noqa
-            run("python -m pytest -n {} --tb=native -m 'not floetest' -p no:randomly {}".format(multiprocessing.cpu_count(), opts), pty=True)
-        except ImportError:
-            run("python -m pytest --tb=native {}".format(opts), pty=True)
-
+    if xver:
+        run("python -m pytest -n {} --tb=native -m 'not floetest' -p no:randomly {}".format(multiprocessing.cpu_count(), opts), pty=pty)
     else:
-        run("python -m pytest --tb=native {}".format(opts), pty=True)
+        run("python -m pytest --tb=native {}".format(opts), pty=pty)
 
 
 @task
@@ -118,7 +122,7 @@ def test_floes(ctx, opts=""):
     run tests
     """
     # clean_pyc(ctx)
-    run("python -m pytest --tb=native -m 'floetest' tests/floe_tests {} ".format(opts), pty=True)
+    run("python -m pytest --tb=native -m 'floetest' tests/floe_tests {} ".format(opts), pty=pty)
 
 
 @task
@@ -147,7 +151,14 @@ def test_orion(ctx, profile="", opts=""):
     clean(ctx)
     update_manifest(ctx)
     _make_reqs_file()
-    run("ORION_PROFILE={} python -m pytest -v -s --tb=native  -m 'floetest' --orion tests/floes/floe_tests {}".format(profile, opts), pty=True)
+    if not sys.platform == 'win32':
+        run("ORION_PROFILE={} python -m pytest -v -s --tb=native  -m 'floetest' --orion tests/floe_tests {}".format(opts), pty=pty)
+    elif "ORION_PROFILE" not in os.environ:
+        os.environ["ORION_PROFILE"] = profile
+        run("python -m pytest -v -s --tb=native  -m 'floetest' --orion tests/floe_tests {} ".format(opts), pty=pty)
+        os.environ["ORION_PROFILE"] = ""
+    else:
+        run("python -m pytest -v -s --tb=native  -m 'floetest' --orion tests/floe_tests {} ".format(opts), pty=pty)
     _clean_orion_package_files()
 
 

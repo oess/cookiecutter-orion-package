@@ -16,10 +16,17 @@
 # or its use.
 
 from floe.api import BooleanParameter
+<<<<<<< HEAD
 from cuberecord import OERecordCube
 
 
 class MyCube(OERecordCube):
+=======
+from floe.api import ComputeCube
+from orionplatform.mixins import RecordPortsMixin
+
+class MyCube(RecordPortsMixin, ComputeCube):
+>>>>>>> oe/gh_release
     # Cube documentation.  This documentation for this cube, and all other cubes in this repository, can be converted
     # to html by calling 'invoke docs' from the root directory of this repository.  This documentation will also
     # appear in the Orion Floe editor.

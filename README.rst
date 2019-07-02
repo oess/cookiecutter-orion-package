@@ -31,11 +31,12 @@ Setup
 
     *Note:* running cookiecutter directly against the GitHub repository requires ``git`` to be locally installed. To install without requiring ``git``, download the ZIP file from `GitHub <https://github.com/oess/cookiecutter-orion-package>`_ and run  ``cookiecutter cookiecutter-orion-package-master.zip``
 
-3. After ``cookiecutter`` setup is completed run the following command to install all requirements and development requirements:
+3. After ``cookiecutter`` setup is completed run the following commands to install all requirements and development requirements:
 
 ::
 
-    pip install -r requirements.txt
+    pip install -e .
+    pip install -r requirements_dev.txt
 
 
 

@@ -1,9 +1,9 @@
 # Development requirements for {{cookiecutter.module_name}}. True production requirements go in setup.py
-pytest
-invoke
-sphinx
 OpenEye-floe-pkg-tools
 OpenEye-Artemis
+
+# pytest
+invoke
+# sphinx
 sphinx_rtd_theme
 
--e .

@@ -16,7 +16,7 @@
 # or its use.
 
 from floe.api import WorkFloe
-from cuberecord import (DatasetReaderCube,
+from orionplatform.cubes import (DatasetReaderCube,
                         DatasetWriterCube)
 from {{cookiecutter.module_name}} import MyCube
 

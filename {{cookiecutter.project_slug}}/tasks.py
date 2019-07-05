@@ -179,7 +179,7 @@ def clean(ctx):
     clean_pyc(ctx)
     shutil.rmtree("dist", ignore_errors=True)
     shutil.rmtree("build", ignore_errors=True)
-    egg_path = "{}.egg-info".format("{{cookiecutter.project_slug}}".replace("-","_"))
+    egg_path = "{}.egg-info".format("{{cookiecutter.project_slug}}".replace("-", "_"))
     if os.path.isfile(egg_path):
         os.remove(egg_path)
     elif os.path.isdir(egg_path):
@@ -228,4 +228,3 @@ def _clean_orion_package_files(reqs_filename="orion-requirements.txt"):
     print(reqs_path)
     if os.path.isfile(reqs_path):
         os.remove(reqs_path)
-

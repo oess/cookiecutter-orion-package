@@ -22,13 +22,13 @@ from json import dumps
 from setuptools import setup, find_packages, convert_path
 
 # Requirements for {{cookiecutter.module_name}}
-requirements = ["OpenEye-orionplatform==0.3.2", "OpenEye-snowball==0.14.0"]
+requirements = ["OpenEye-orionplatform==1.0.0", "OpenEye-snowball==0.14.0"]
 
 # Obtain version of cuberecord
-_version_re = compile(r'__version__\s+=\s+(.*)')
+_version_re = compile(r"__version__\s+=\s+(.*)")
 version_file = convert_path("./{{cookiecutter.module_name}}/__init__.py")
-with open(version_file, 'rb') as f:
-    version = str(literal_eval(_version_re.search(f.read().decode('utf-8')).group(1)))
+with open(version_file, "rb") as f:
+    version = str(literal_eval(_version_re.search(f.read().decode("utf-8")).group(1)))
 
 if argv[-1] == "--requires":
     print(dumps(requirements))
@@ -36,24 +36,24 @@ if argv[-1] == "--requires":
 
 
 setup(
-    name='{{cookiecutter.project_slug}}',
+    name="{{cookiecutter.project_slug}}",
     version=version,
-    packages=find_packages(exclude=['tests/*', 'floes/*']),
-    author='{{cookiecutter.full_name}}',
-    author_email='{{cookiecutter.email}}',
-    description='{{cookiecutter.description}}',
-    license='Other/Proprietary License',
-    keywords='openeye cloud orion',
+    packages=find_packages(exclude=["tests/*", "floes/*"]),
+    author="{{cookiecutter.full_name}}",
+    author_email="{{cookiecutter.email}}",
+    description="{{cookiecutter.description}}",
+    license="Other/Proprietary License",
+    keywords="openeye cloud orion",
     include_package_data=True,
     install_requires=requirements,
     classifiers=[
-        'Development Status :: Beta',
-        'Intended Audience :: Orion',
-        'Intended Audience :: Science/Research',
-        'Programming Language :: Python',
-        'Topic :: Software Development :: Libraries',
-        'Topic :: Scientific/Engineering :: Chemistry',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python :: 3.5',
-    ]
+        "Development Status :: Beta",
+        "Intended Audience :: Orion",
+        "Intended Audience :: Science/Research",
+        "Programming Language :: Python",
+        "Topic :: Software Development :: Libraries",
+        "Topic :: Scientific/Engineering :: Chemistry",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3.5",
+    ],
 )

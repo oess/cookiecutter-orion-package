@@ -15,18 +15,11 @@
 # liable for any damages or liability in connection with the Sample Code
 # or its use.
 
-from floe.api import BooleanParameter
-<<<<<<< HEAD
-from cuberecord import OERecordCube
-
-
-class MyCube(OERecordCube):
-=======
-from floe.api import ComputeCube
+from floe.api import BooleanParameter, ComputeCube
 from orionplatform.mixins import RecordPortsMixin
 
+
 class MyCube(RecordPortsMixin, ComputeCube):
->>>>>>> oe/gh_release
     # Cube documentation.  This documentation for this cube, and all other cubes in this repository, can be converted
     # to html by calling 'invoke docs' from the root directory of this repository.  This documentation will also
     # appear in the Orion Floe editor.
@@ -36,11 +29,13 @@ class MyCube(RecordPortsMixin, ComputeCube):
     description = "A cube that passes records to the success or failure port depending on the switch parameter"
 
     # The first variable passed to a parameter must always be the variable the parameter is assigned to as a string.
-    switch = BooleanParameter("switch",
-                              required=True,
-                              title="Switch",
-                              description="If true records are sent to the success, otherwise they are send to "
-                                          "the failure port.")
+    switch = BooleanParameter(
+        "switch",
+        required=True,
+        title="Switch",
+        description="If true records are sent to the success, otherwise they are send to "
+        "the failure port.",
+    )
 
     # Uncomment this and implement if you need to initialize the cube
     # def begin(self):

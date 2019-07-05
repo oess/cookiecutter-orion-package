@@ -1,1 +1,1 @@
-{"name": "{{cookiecutter.project_name}}", "python_version": 3.6, "requirements": "orion-requirements.txt", "version": "{{cookiecutter.version}}"}
+{"name": "{{cookiecutter.project_name}}", "python_version": 3.7, "requirements": "orion-requirements.txt", "version": "{{cookiecutter.version}}"}

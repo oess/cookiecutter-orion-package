@@ -1,3 +1,4 @@
+-e .
 # Development requirements for {{cookiecutter.module_name}}. True production requirements go in setup.py
 OpenEye-floe-pkg-tools
 OpenEye-Artemis

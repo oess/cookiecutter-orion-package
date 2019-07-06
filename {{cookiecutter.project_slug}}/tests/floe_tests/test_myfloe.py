@@ -34,9 +34,27 @@ FLOES_DIR = os.path.join(PACKAGE_DIR, "floes")
 
 session = OrionSession()
 
+temp_req = NamedTemporaryFile(suffix=".txt")
+results = check_output(["python", "setup.py", "--requires"], cwd=PACKAGE_DIR)
+requirements = json.loads(results)
+with open(temp_req.name, "w") as ofs:
+    for result in requirements:
+        # Create a file with orion requirements
+        ofs.write("{}\n".format(result))
+
+test_package = OrionTestPackage(manifest=dict(requirements="requirements.txt"))
+# Add the contents of the regular package
+test_package.add_directory(PACKAGE_DIR)
+# Remove the tests as have different requirements
+test_package.remove_directory("tests/")
+# Remove tasks.py as requires invoke
+test_package.remove_file("tasks.py")
+# Add the orion requirements requirements
+test_package.add_file(temp_req.name, dest="requirements.txt")
+
 
 @pytest.mark.floetest
-@package(PACKAGE_DIR)
+@package(test_package)
 class TestReadWriteFloe(FloeTestCase):
 
     def test_simple_run(self):

@@ -17,13 +17,15 @@
 
 from floe.api import WorkFloe
 from orionplatform.cubes import DatasetReaderCube, DatasetWriterCube
-from {{cookiecutter.module_name}} import MyCube
+from {{cookiecutter.module_name}}.mycube import MyCube
 
 
 # Declare and document floe
 job = WorkFloe("my floe", title="My Floe")
-job.description = "Outputs the input records unchanged unless the parameter is set to false, in which case nothing " \
-                   "is outputted"
+job.description = (
+    "Outputs the input records unchanged unless the parameter is set to false, in which case nothing "
+    "is outputted"
+)
 job.classification = [["Examples"]]
 job.tags = ["Examples", "I didn't edit the tags"]
 
@@ -38,9 +40,15 @@ job.add_cube(switch_cube)
 job.add_cube(output_cube)
 
 # Promote parameters
-input_cube.promote_parameter("data_in", promoted_name="in", title="Input data set of records")
-switch_cube.promote_parameter("switch", promoted_name="switch", title="Switch controlling Output")
-output_cube.promote_parameter("data_out", promoted_name="out", title="Output File of Molecules")
+input_cube.promote_parameter(
+    "data_in", promoted_name="in", title="Input data set of records"
+)
+switch_cube.promote_parameter(
+    "switch", promoted_name="switch", title="Switch controlling Output"
+)
+output_cube.promote_parameter(
+    "data_out", promoted_name="out", title="Output File of Molecules"
+)
 
 input_cube.success.connect(switch_cube.intake)
 switch_cube.success.connect(output_cube.intake)

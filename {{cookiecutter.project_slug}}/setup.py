@@ -22,7 +22,10 @@ from json import dumps
 from setuptools import setup, find_packages, convert_path
 
 # Requirements for {{cookiecutter.module_name}}
-requirements = ["OpenEye-orionplatform==1.0.0", "OpenEye-snowball==0.14.0"]
+requirements = [
+    "OpenEye-orionplatform==1.0.0",
+    "OpenEye-snowball==0.16.0",
+]
 
 # Obtain version of cuberecord
 _version_re = compile(r"__version__\s+=\s+(.*)")
@@ -54,6 +57,6 @@ setup(
         "Topic :: Software Development :: Libraries",
         "Topic :: Scientific/Engineering :: Chemistry",
         "Operating System :: OS Independent",
-        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.7",
     ],
 )

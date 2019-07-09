@@ -25,7 +25,7 @@ from setuptools import convert_path
 
 xver = None
 pty = False
-if not sys.platform == 'win32':
+if sys.platform != "win32":
     pty = True
     try:
         from xdist import __version__ as xver  # noqa
@@ -43,11 +43,11 @@ def update_manifest(ctx):
     """
     Updates manifest.json with the correct version of {{cookiecutter.project_slug}}
     """
-    spec = loads(open('manifest.json', 'r').read())
+    spec = loads(open("manifest.json", "r").read())
     sys.path.append(os.path.dirname(__file__))
     import {{cookiecutter.module_name}}
-    spec['version'] = {{cookiecutter.module_name}}.__version__
-    dump(spec, open('manifest.json', 'w'))
+    spec["version"] = {{cookiecutter.module_name}}.__version__
+    dump(spec, open("manifest.json", "w"))
 
 
 @task
@@ -68,10 +68,10 @@ def package(ctx):
 @task
 def docs(ctx):
     curdir = os.getcwd()
-    run('cube_doc {{cookiecutter.module_name}} docs/source')
-    run('floe_doc {{cookiecutter.module_name}} floes docs/source')
-    os.chdir('docs')
-    if sys.platform == 'win32':
+    run("cube_doc {{cookiecutter.module_name}} docs/source")
+    run("floe_doc {{cookiecutter.module_name}} floes docs/source")
+    os.chdir("docs")
+    if sys.platform == "win32":
         run("make.bat html")
     else:
         run("make html")
@@ -122,7 +122,7 @@ def test_floes(ctx, opts=""):
     run tests
     """
     # clean_pyc(ctx)
-    run("python -m pytest --tb=native -m 'floetest' {} ".format(opts), pty=pty)
+    run("python -m pytest --tb=native -m floetest {} ".format(opts), pty=pty)
 
 
 @task
@@ -145,20 +145,20 @@ def test_orion(ctx, profile="", opts=""):
         if "ORION_PROFILE" in os.environ:
             profile = os.getenv("ORION_PROFILE")
         else:
-            profile = 'default'
+            profile = "default"
     print("Using Orion Profile: {}".format(profile))
     clean_pyc(ctx)
     clean(ctx)
     update_manifest(ctx)
     _make_reqs_file()
-    if not sys.platform == 'win32':
-        run("ORION_PROFILE={} python -m pytest -v -s --tb=native  -m 'floetest' --orion {}".format(opts), pty=pty)
+    if sys.platform != "win32":
+        run("ORION_PROFILE={} python -m pytest -v -s --tb=native  -m floetest --orion {}".format(profile, opts), pty=pty)
     elif "ORION_PROFILE" not in os.environ:
         os.environ["ORION_PROFILE"] = profile
-        run("python -m pytest -v -s --tb=native  -m 'floetest' --orion {} ".format(opts), pty=pty)
+        run("python -m pytest -v -s --tb=native  -m floetest --orion {} ".format(opts), pty=pty)
         os.environ["ORION_PROFILE"] = ""
     else:
-        run("python -m pytest -v -s --tb=native  -m 'floetest' --orion {} ".format(opts), pty=pty)
+        run("python -m pytest -v -s --tb=native  -m floetest --orion {} ".format(opts), pty=pty)
     _clean_orion_package_files()
 
 
@@ -166,8 +166,8 @@ def test_orion(ctx, profile="", opts=""):
 def serve_docs(ctx):
     docs(ctx)
     curdir = os.getcwd()
-    os.chdir('docs/build/html')
-    run('python -m http.server')
+    os.chdir("docs/build/html")
+    run("python -m http.server")
     os.chdir(curdir)
 
 
@@ -211,7 +211,7 @@ def _clean_out_dir(dir_path):
 
 
 def _make_reqs_file(reqs_filename="orion-requirements.txt"):
-    requirements = loads(run("python setup.py --requires", hide='both').stdout.strip("\n\r"))
+    requirements = loads(run("python setup.py --requires", hide="both").stdout.strip("\n\r"))
 
     # Create the Orion packaging files
     reqs_path = convert_path("./{}".format(reqs_filename))
@@ -225,6 +225,5 @@ def _make_reqs_file(reqs_filename="orion-requirements.txt"):
 def _clean_orion_package_files(reqs_filename="orion-requirements.txt"):
     # Create the Orion packaging files
     reqs_path = convert_path("./{}".format(reqs_filename))
-    print(reqs_path)
     if os.path.isfile(reqs_path):
         os.remove(reqs_path)

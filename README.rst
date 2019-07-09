@@ -3,11 +3,17 @@ OpenEye Cube/Floe Package CookieCutter Template
 
 A `Cookiecutter`_ template for Orion packages containing Cubes and Floes.
 
+Support
+-------
+
+For all questions regarding the usage of this CookieCutter template, please contact
+`OpenEye Support`_.
+
 Features
 --------
 * Sets up skeleton of an Orion package containing Cubes and Floes
-* simple example Cube and Floe
-* Testing setup using `PyTest`_ including working test for the example cube
+* Simple example Cube and Floe
+* Testing setup using `PyTest`_ including working test for the example cube and floe
 * Automatic documentation generation (using `Sphinx`_ ) for cubes and floes
 * Commands for running tests, building docs, and packaging using `Invoke`_
 * Version configuration via storing the version only in the module's ``__init__.py`` file
@@ -25,17 +31,24 @@ Requirements
 Setup
 -----
 
-1. `Install cookiecutter <https://cookiecutter.readthedocs.io/en/latest/installation.html>`_, usually via running ``pip install cookiecutter``
+#. `Install cookiecutter <https://cookiecutter.readthedocs.io/en/latest/installation.html>`_, usually via running ``pip install cookiecutter``
 
-2. run ``cookiecutter  gh:oess/cookiecutter-orion-package``
+#. Run ``cookiecutter  gh:oess/cookiecutter-orion-package``
 
-    *Note:* running cookiecutter directly against the GitHub repository requires ``git`` to be locally installed. To install without requiring ``git``, download the ZIP file from `GitHub <https://github.com/oess/cookiecutter-orion-package>`_ and run  ``cookiecutter cookiecutter-orion-package-master.zip``
+    **Note:** running cookiecutter directly against the GitHub repository requires ``git`` to be locally installed. To install without requiring ``git``,
+    download the ZIP file from `GitHub <https://github.com/oess/cookiecutter-orion-package>`_ and run  ``cookiecutter cookiecutter-orion-package-master.zip``
 
-3. After ``cookiecutter`` setup is completed run the following commands to install all requirements and development requirements:
+#. This will generate a directory with the name you provided as the project_slug in the cookiecutter setup. Switch into the directory
 
 ::
 
-    pip install -e .
+    cd <project_slug>
+
+
+#. Next install all requirements and development requirements:
+
+::
+
     pip install -r requirements_dev.txt
 
 
@@ -62,11 +75,23 @@ A local webserver for the docs can be launched on port 8000 as follows:
 
     invoke serve-docs
 
-Tests are set up for each of the floes included, they can be run locally:
+Tests are set up for the cube and floe that are included, they can be run locally:
 
 ::
 
-    invoke test
+    invoke test-all
+
+Command to just test cubes
+
+::
+
+    invoke test-cubes
+
+Command to just test floes
+
+::
+
+    invoke test-floes
 
 To clean up generated documentation and packaging files, run:
 
@@ -79,7 +104,6 @@ You can also selectively clean only documentation files as follows:
 ::
 
     invoke clean-docs
-
 
 
 

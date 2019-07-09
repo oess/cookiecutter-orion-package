@@ -1,8 +1,9 @@
 from unittest import TestCase
-from {{cookiecutter.module_name}} import MyCube
-# from cuberecord import OERecordCubeTestRunner
-from floe.test import CubeTestRunner
+
 from datarecord import OERecord
+from floe.test import CubeTestRunner
+
+from {{cookiecutter.module_name}}.mycube import MyCube
 
 
 class MyCubeTest(TestCase):
@@ -10,7 +11,7 @@ class MyCubeTest(TestCase):
     def setUp(self):
         super().setUp()
         # Here we create the counter cube and test runner
-        self.cube = MyCube('my_cube')
+        self.cube = MyCube("my_cube")
         self.runner = CubeTestRunner(self.cube)
 
         self.runner.set_parameters(switch=True)
@@ -26,8 +27,6 @@ class MyCubeTest(TestCase):
         for i in range(num_to_send):
             record = OERecord()
             self.cube.process(record, "intake")
-
-
 
         # Now check the output
         self.assertEqual(self.runner.outputs["success"].qsize(), num_to_send)

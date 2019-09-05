@@ -39,7 +39,7 @@ FLOES_DIR = os.path.join(PACKAGE_DIR, "floes")
 
 temp_req = NamedTemporaryFile(suffix=".txt")
 results = check_output(["python", "setup.py", "--requires"], cwd=PACKAGE_DIR)
-requirements = json.loads(results)
+requirements = json.loads(results.decode())
 with open(temp_req.name, "w") as ofs:
     for result in requirements:
         # Create a file with orion requirements

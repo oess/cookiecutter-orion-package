@@ -91,15 +91,6 @@ def clean_pyc(ctx):
 
 
 @task
-def clean_docs(ctx):
-    doc_dir = "docs/build/html"
-    _clean_out_dir(doc_dir)
-
-    if os.path.isdir("docs/build/doctrees"):
-        shutil.rmtree("docs/build/doctrees")
-
-
-@task
 def flint(ctx):
     run("floe lint floes/")
 
@@ -110,8 +101,13 @@ def test_cubes(ctx, opts="-s", no_xdist=False):
     run cube tests
     """
     # clean_pyc(ctx)
-    if xver and not no_xdist: # noqa
-        run("python -m pytest -n {} --tb=native -m 'not floetest' -p no:randomly {}".format(multiprocessing.cpu_count(), opts), pty=pty)
+    if xver and not no_xdist:  # noqa
+        run(
+            "python -m pytest -n {} --tb=native -m 'not floetest' -p no:randomly {}".format(
+                multiprocessing.cpu_count(), opts
+            ),
+            pty=pty,
+        )
     else:
         run("python -m pytest --tb=native -m 'not floetest' {}".format(opts), pty=pty)
 
@@ -141,7 +137,7 @@ def test_orion(ctx, profile="", opts=""):
     run tests
     """
 
-    if profile is "":
+    if profile == "":
         if "ORION_PROFILE" in os.environ:
             profile = os.getenv("ORION_PROFILE")
         else:
@@ -152,13 +148,24 @@ def test_orion(ctx, profile="", opts=""):
     update_manifest(ctx)
     _make_reqs_file()
     if sys.platform != "win32":
-        run("ORION_PROFILE={} python -m pytest -v -s --tb=native  -m floetest --orion {}".format(profile, opts), pty=pty)
+        run(
+            "ORION_PROFILE={} python -m pytest -v -s --tb=native  -m floetest --orion {}".format(
+                profile, opts
+            ),
+            pty=pty,
+        )
     elif "ORION_PROFILE" not in os.environ:
         os.environ["ORION_PROFILE"] = profile
-        run("python -m pytest -v -s --tb=native  -m floetest --orion {} ".format(opts), pty=pty)
+        run(
+            "python -m pytest -v -s --tb=native  -m floetest --orion {} ".format(opts),
+            pty=pty,
+        )
         os.environ["ORION_PROFILE"] = ""
     else:
-        run("python -m pytest -v -s --tb=native  -m floetest --orion {} ".format(opts), pty=pty)
+        run(
+            "python -m pytest -v -s --tb=native  -m floetest --orion {} ".format(opts),
+            pty=pty,
+        )
     _clean_orion_package_files()
 
 
@@ -211,7 +218,9 @@ def _clean_out_dir(dir_path):
 
 
 def _make_reqs_file(reqs_filename="orion-requirements.txt"):
-    requirements = loads(run("python setup.py --requires", hide="both").stdout.strip("\n\r"))
+    requirements = loads(
+        run("python setup.py --requires", hide="both").stdout.strip("\n\r")
+    )
 
     # Create the Orion packaging files
     reqs_path = convert_path("./{}".format(reqs_filename))

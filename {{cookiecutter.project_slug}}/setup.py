@@ -1,4 +1,4 @@
-# (C) 2018 OpenEye Scientific Software Inc. All rights reserved.
+# (C) 2018-2019 OpenEye Scientific Software Inc. All rights reserved.
 #
 # TERMS FOR USE OF SAMPLE CODE The software below ("Sample Code") is
 # provided to current licensees or subscribers of OpenEye products or
@@ -23,19 +23,18 @@ from setuptools import setup, find_packages, convert_path
 
 # Requirements for {{cookiecutter.module_name}}
 requirements = [
-    "OpenEye-orionplatform==1.0.0",
-    "OpenEye-snowball==0.16.0",
+    "OpenEye-orionplatform==1.1.5",
 ]
-
-# Obtain version of cuberecord
-_version_re = compile(r"__version__\s+=\s+(.*)")
-version_file = convert_path("./{{cookiecutter.module_name}}/__init__.py")
-with open(version_file, "rb") as f:
-    version = str(literal_eval(_version_re.search(f.read().decode("utf-8")).group(1)))
 
 if argv[-1] == "--requires":
     print(dumps(requirements))
     exit()
+
+# Obtain version of the package
+_version_re = compile(r"__version__\s+=\s+(.*)")
+version_file = convert_path("./{{cookiecutter.module_name}}/__init__.py")
+with open(version_file, "rb") as f:
+    version = str(literal_eval(_version_re.search(f.read().decode("utf-8")).group(1)))
 
 
 setup(

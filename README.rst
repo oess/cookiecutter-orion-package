@@ -14,7 +14,7 @@ Features
 * Sets up skeleton of an Orion package containing Cubes and Floes
 * Simple example Cube and Floe
 * Testing setup using `PyTest`_ including working test for the example cube and floe
-* Automatic documentation generation (using `Sphinx`_ ) for cubes and floes
+* Automatic documentation generation (using `Sphinx`_) for cubes and floes
 * Commands for running tests, building docs, and packaging using `Invoke`_
 * Version configuration via storing the version only in the module's ``__init__.py`` file
 

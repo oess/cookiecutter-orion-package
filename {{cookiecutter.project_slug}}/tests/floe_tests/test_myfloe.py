@@ -19,7 +19,6 @@ import os
 import json
 import pytest
 from subprocess import check_output
-from tempfile import NamedTemporaryFile
 
 from artemis.wrappers import WorkFloeWrapper, DatasetWrapper, OutputDatasetWrapper
 from artemis.test import FloeTestCase
@@ -27,7 +26,8 @@ from artemis.decorators import package
 from artemis.packaging import OrionTestPackage
 
 from openeye.oechem import oeifstream
-from datarecord import read_mol_record
+from datarecord import OEReadRecords
+from datarecord.utils import TemporaryPath
 
 import {{cookiecutter.module_name}}
 
@@ -37,14 +37,6 @@ FILE_DIR = os.path.join(PACKAGE_DIR, "tests", "test_data")
 FLOES_DIR = os.path.join(PACKAGE_DIR, "floes")
 
 
-temp_req = NamedTemporaryFile(suffix=".txt")
-results = check_output(["python", "setup.py", "--requires"], cwd=PACKAGE_DIR)
-requirements = json.loads(results.decode())
-with open(temp_req.name, "w") as ofs:
-    for result in requirements:
-        # Create a file with orion requirements
-        ofs.write("{}\n".format(result))
-
 test_package = OrionTestPackage(manifest=dict(requirements="requirements.txt"))
 # Add the contents of the regular package
 test_package.add_directory(PACKAGE_DIR)
@@ -52,8 +44,16 @@ test_package.add_directory(PACKAGE_DIR)
 test_package.remove_directory("tests/")
 # Remove tasks.py as it requires invoke
 test_package.remove_file("tasks.py")
-# Add the orion requirements requirements
-test_package.add_file(temp_req.name, dest="requirements.txt")
+
+with TemporaryPath(suffix=".txt") as path:
+    results = check_output(["python", "setup.py", "--requires"], cwd=PACKAGE_DIR)
+    requirements = json.loads(results.decode())
+    with open(path, "w") as ofs:
+        for result in requirements:
+            # Create a file with orion requirements
+            ofs.write("{}\n".format(result))
+    # Add the orion requirements requirements
+    test_package.add_file(path, dest="requirements.txt")
 
 
 @pytest.mark.floetest
@@ -87,11 +87,6 @@ class TestReadWriteFloe(FloeTestCase):
 
         ifs = oeifstream()
         with open(output_file.path, "rb") as ifs:
-            records = []
-            while True:
-                record = read_mol_record(ifs)
-                if record is None:
-                    break
-                records.append(record)
+            records = list(OEReadRecords(ifs))
         count = len(records)
         self.assertEqual(count, 10)

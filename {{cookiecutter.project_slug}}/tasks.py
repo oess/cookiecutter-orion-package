@@ -18,19 +18,13 @@
 import os
 import sys
 import shutil
-import multiprocessing
 from json import loads, dump
 from invoke import task, run
 from setuptools import convert_path
 
-xver = None
 pty = False
 if sys.platform != "win32":
     pty = True
-    try:
-        from xdist import __version__ as xver  # noqa
-    except ImportError:
-        pass
 
 
 @task
@@ -96,20 +90,11 @@ def flint(ctx):
 
 
 @task
-def test_cubes(ctx, opts="-s", no_xdist=False):
+def test_cubes(ctx, opts="-s"):
     """
     run cube tests
     """
-    # clean_pyc(ctx)
-    if xver and not no_xdist:  # noqa
-        run(
-            "python -m pytest -n {} --tb=native -m 'not floetest' -p no:randomly {}".format(
-                multiprocessing.cpu_count(), opts
-            ),
-            pty=pty,
-        )
-    else:
-        run("python -m pytest --tb=native -m 'not floetest' {}".format(opts), pty=pty)
+    run("python -m pytest --tb=native -m 'not floetest' {}".format(opts), pty=pty)
 
 
 @task
@@ -118,7 +103,7 @@ def test_floes(ctx, opts=""):
     run tests
     """
     # clean_pyc(ctx)
-    run("python -m pytest --tb=native -m floetest {} ".format(opts), pty=pty)
+    run("python -m pytest --tb=native -m 'floetest' {} ".format(opts), pty=pty)
 
 
 @task

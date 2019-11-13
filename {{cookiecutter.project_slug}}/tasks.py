@@ -17,6 +17,7 @@
 
 import os
 import sys
+import json
 import shutil
 from json import loads, dump
 from invoke import task, run
@@ -189,6 +190,16 @@ def clean_docs(ctx):
         shutil.rmtree("docs/build/doctrees")
 
 
+@task
+def build_environment_yaml(ctx):
+    manifest_path = "manifest.json"
+    if not os.path.isfile(manifest_path):
+        print("Unable to find a manifest.json")
+        sys.exit(1)
+    convert_manifest_to_conda_environment(manifest_path, "environment.yml")
+    print("Build a conda environment by running `conda env create -f environment.yml`")
+
+
 def _clean_out_dir(dir_path):
     if os.path.isdir(dir_path):
         for the_file in os.listdir(dir_path):
@@ -221,3 +232,43 @@ def _clean_orion_package_files(reqs_filename="orion-requirements.txt"):
     reqs_path = convert_path("./{}".format(reqs_filename))
     if os.path.isfile(reqs_path):
         os.remove(reqs_path)
+
+
+def convert_manifest_to_conda_environment(manifest_path, output_path):
+    with open(manifest_path, "r") as ifs:
+        manifest_data = json.load(ifs)
+
+    python_req = "python={}".format(manifest_data.get("python_version", "3.7"))
+    conda_requirements = set()
+    for dep in manifest_data.get("conda_dependencies", []):
+        conda_requirements.add(dep)
+    req_path = os.path.relpath(
+        manifest_data["requirements"],
+        start=os.path.dirname(manifest_path),
+    )
+    try:
+        _make_reqs_file()
+        pip_requirements = set()
+        with open(req_path, "r") as ifs:
+            for req in ifs.readlines():
+                pip_requirements.add(req)
+    finally:
+        _clean_orion_package_files()
+
+    conda_requirements.add(python_req)
+    conda_requirements = list(conda_requirements)
+    with open(output_path, "w") as ofs:
+        ofs.write("name: {}\n".format(manifest_data["name"]))
+
+        if manifest_data.get("conda_channels", None):
+            ofs.write("channels:\n")
+            for channel in manifest_data["conda_channels"]:
+                ofs.writ(" - {}\n".format(channel))
+
+        ofs.write("dependencies:\n")
+        for req in conda_requirements:
+            ofs.write(" - {}\n".format(req))
+        if len(pip_requirements):
+            ofs.write(" - pip:\n")
+            for req in pip_requirements:
+                ofs.write("    - {}\n".format(req))

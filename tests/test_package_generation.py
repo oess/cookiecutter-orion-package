@@ -1,3 +1,4 @@
+import os
 import json
 from subprocess import check_call
 
@@ -24,3 +25,21 @@ def test_package_creation(cookies):
     assert data["name"] == project_name
     # Verify that there are no style errors out of the box
     check_call(["flake8", str(results.project), "--max-line-length=120"]) 
+
+
+def test_environment_yaml_creation(cookies):
+    project_name = "My_test_Project"
+    results = cookies.bake(
+        extra_context={
+            "project_name": project_name,
+            "version": "1.0.0",
+            "full_name": "Full Name",
+            "email": "noreply@eyesopen.com",
+        }
+    )
+
+    assert results.exit_code == 0, "Failed to generate package"
+    path = results.project
+    check_call(["inv", "build-environment-yaml"], cwd=path)
+    env_path = os.path.join(path, "environment.yml")
+    assert os.path.isfile(env_path)

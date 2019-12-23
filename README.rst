@@ -40,17 +40,17 @@ Setup
 
 #. This will generate a directory with the name you provided as the project_slug in the cookiecutter setup. Switch into the directory
 
-::
+    ::
 
-    cd <project_slug>
+        cd <project_slug>
 
 
 #. Next install all requirements and development requirements:
 
-::
+    ::
 
-    pip install -e .
-    pip install -r requirements_dev.txt
+        pip install -e .
+        pip install -r requirements_dev.txt
 
 
 

@@ -23,7 +23,7 @@ from setuptools import setup, find_packages, convert_path
 
 # Requirements for {{cookiecutter.module_name}}
 requirements = [
-    "OpenEye-orionplatform==1.1.5",
+    "OpenEye-orionplatform==2.3.0",
 ]
 
 if argv[-1] == "--requires":

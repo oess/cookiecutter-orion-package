@@ -42,7 +42,7 @@ def update_manifest(ctx):
     sys.path.append(os.path.dirname(__file__))
     import {{cookiecutter.module_name}}
     spec["version"] = {{cookiecutter.module_name}}.__version__
-    dump(spec, open("manifest.json", "w"))
+    dump(spec, open("manifest.json", "w"), indent=2, sort_keys=True)
 
 
 @task

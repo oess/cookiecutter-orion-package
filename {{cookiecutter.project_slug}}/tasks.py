@@ -263,7 +263,7 @@ def convert_manifest_to_conda_environment(manifest_path, output_path):
         if manifest_data.get("conda_channels", None):
             ofs.write("channels:\n")
             for channel in manifest_data["conda_channels"]:
-                ofs.writ(" - {}\n".format(channel))
+                ofs.write(" - {}\n".format(channel))
 
         ofs.write("dependencies:\n")
         for req in conda_requirements:

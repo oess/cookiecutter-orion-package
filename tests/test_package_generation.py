@@ -40,6 +40,17 @@ def test_environment_yaml_creation(cookies):
 
     assert results.exit_code == 0, "Failed to generate package"
     path = results.project
+    manifest_path = os.path.join(path, "manifest.json")
+    assert os.path.isfile(manifest_path)
+    check_call(["inv", "build-environment-yaml"], cwd=path)
+    env_path = os.path.join(path, "environment.yml")
+    assert os.path.isfile(env_path)
+    os.remove(env_path)
+    with open(manifest_path, "r") as ifs:
+        data = json.load(ifs)
+    data["conda_channels"] = ["conda-forge"]
+    with open(manifest_path, "w") as ofs:
+        json.dump(data, ofs, sort_keys=True, indent=2)
     check_call(["inv", "build-environment-yaml"], cwd=path)
     env_path = os.path.join(path, "environment.yml")
     assert os.path.isfile(env_path)

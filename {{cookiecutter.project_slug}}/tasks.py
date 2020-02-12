@@ -257,8 +257,9 @@ def convert_manifest_to_conda_environment(manifest_path, output_path):
 
     conda_requirements.add(python_req)
     conda_requirements = list(conda_requirements)
+    env_name = manifest_data["name"].lower().replace(" ", "-")
     with open(output_path, "w") as ofs:
-        ofs.write("name: {}\n".format(manifest_data["name"]))
+        ofs.write("name: {}\n".format(env_name))
 
         if manifest_data.get("conda_channels", None):
             ofs.write("channels:\n")

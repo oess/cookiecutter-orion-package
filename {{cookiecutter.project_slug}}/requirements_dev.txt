@@ -1,7 +1,7 @@
 -e .
 # Development requirements for {{cookiecutter.module_name}}. Production requirements go in setup.py
-OpenEye-floe-pkg-tools>=0.8.1,<0.9.0
-OpenEye-Artemis>=1.1.1,<2.0.0
+OpenEye-floe-pkg-tools>=0.9.0,<=0.13.0
+OpenEye-Artemis>=1.1.1,<=3.0.0
 
 invoke
 sphinx_rtd_theme

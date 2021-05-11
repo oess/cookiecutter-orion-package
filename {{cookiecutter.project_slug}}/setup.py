@@ -1,4 +1,4 @@
-# (C) 2018-2019 OpenEye Scientific Software Inc. All rights reserved.
+# (C) 2021 OpenEye Scientific Software Inc. All rights reserved.
 #
 # TERMS FOR USE OF SAMPLE CODE The software below ("Sample Code") is
 # provided to current licensees or subscribers of OpenEye products or
@@ -23,7 +23,7 @@ from setuptools import setup, find_packages, convert_path
 
 # Requirements for {{cookiecutter.module_name}}
 requirements = [
-    "OpenEye-orionplatform==2.3.0",
+    "OpenEye-orionplatform==3.2.2",
 ]
 
 if argv[-1] == "--requires":

@@ -1,4 +1,4 @@
-# (C) 2018 OpenEye Scientific Software Inc. All rights reserved.
+# (C) 2021 OpenEye Scientific Software Inc. All rights reserved.
 #
 # TERMS FOR USE OF SAMPLE CODE The software below ("Sample Code") is
 # provided to current licensees or subscribers of OpenEye products or
@@ -21,7 +21,7 @@ from {{cookiecutter.module_name}}.mycube import MyCube
 
 
 # Declare and document floe
-job = WorkFloe("my floe", title="My Floe")
+job = WorkFloe("my_floe", title="My Floe")
 job.description = (
     "Outputs the input records unchanged unless the parameter is set to false, in which case nothing "
     "is outputted"

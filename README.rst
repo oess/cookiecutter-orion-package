@@ -21,7 +21,12 @@ Features
 
 Requirements
 ------------
-* Python 3.5 or higher. We recommend starting with a clean `conda`_ environment.
+* Python 3.5 or higher. We recommend starting with a clean `conda`_ environment, which can be created and activated as: 
+    ::
+
+        conda create -n vir_env python=3.8  
+        conda activate vir_env
+
 
 * `Cookiecutter`_
 
@@ -70,12 +75,14 @@ Documentation can be built via the following command:
 
     invoke docs
 
+[Throws error: cube_doc: command not found]
 A local webserver for the docs can be launched on port 8000 as follows:
 
 ::
 
     invoke serve-docs
 
+[Throws error: cube_doc: command not found]
 Tests are set up for the cube and floe that are included, they can be run locally:
 
 ::

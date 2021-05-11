@@ -21,7 +21,7 @@ Features
 
 Requirements
 ------------
-* Python 3.5 or higher. We recommend starting with a clean `conda`_ environment, which can be created and activated as: 
+* Python 3.8 or higher. We recommend starting with a clean `conda`_ environment, which can be created and activated as: 
     ::
 
         conda create -n vir_env python=3.8  

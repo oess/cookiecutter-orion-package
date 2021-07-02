@@ -21,22 +21,33 @@ Features
 
 Requirements
 ------------
-* Python 3.5 or higher. We recommend starting with a clean `conda`_ environment.
+* Python 3.8 or higher. We recommend starting with a clean `conda`_ environment, which can be created and activated as: 
+    ::
+
+        conda create -n vir_env python=3.8  
+        conda activate vir_env
+
 
 * `Cookiecutter`_
 
 * Access to OpenEye’s Python package server, `Magpie`_. If you are a licensed Orion user and don't have access, please contact `OpenEye Support`_. Follow the instructions there to configure access to Orion python packages via your ``pip.conf`` file.
 
+* A `configured Orion profile`_ to communicate with Orion server. After 'pip install -e .' step below, profile can be configured as: (needs Orion login credentials)
+    ::
+
+        ocli --profile=default config profile 
+
+  
 
 Setup
 -----
 
-#. `Install cookiecutter <https://cookiecutter.readthedocs.io/en/latest/installation.html>`_, usually via running ``pip install cookiecutter``
+#. `Install cookiecutter`_, usually via running ``pip install cookiecutter``
 
 #. Run ``cookiecutter  gh:oess/cookiecutter-orion-package``
 
     **Note:** running cookiecutter directly against the GitHub repository requires ``git`` to be locally installed. To install without requiring ``git``,
-    download the ZIP file from `GitHub <https://github.com/oess/cookiecutter-orion-package>`_ and run  ``cookiecutter cookiecutter-orion-package-master.zip``
+    download the ZIP file from `GitHub`_ and run  ``cookiecutter cookiecutter-orion-package-master.zip``
 
 #. This will generate a directory with the name you provided as the project_slug in the cookiecutter setup. Switch into the directory
 
@@ -70,12 +81,14 @@ Documentation can be built via the following command:
 
     invoke docs
 
+[Throws error: cube_doc: command not found]
 A local webserver for the docs can be launched on port 8000 as follows:
 
 ::
 
     invoke serve-docs
 
+[Throws error: cube_doc: command not found]
 Tests are set up for the cube and floe that are included, they can be run locally:
 
 ::
@@ -152,3 +165,6 @@ upon completion::
 .. _conda: https://conda.io/docs/user-guide/overview.html
 .. _magpie: https://magpie.eyesopen.com
 .. _OpenEye Support: mailto:support%40eyesopen.com
+.. _Install cookiecutter: https://cookiecutter.readthedocs.io/en/latest/installation.html
+.. _GitHub: https://github.com/oess/cookiecutter-orion-package
+.. _configured Orion profile: https://docs.eyesopen.com/orion-developer/modules/orion-client/docs/quickstart.html#installing-orion-client

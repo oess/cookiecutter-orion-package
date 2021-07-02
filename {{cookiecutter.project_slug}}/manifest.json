@@ -1,6 +1,6 @@
 {
   "name": "{{cookiecutter.project_name}}",
-  "python_version": "3.7.3",
+  "python_version": "3.8.8",
   "requirements": "orion-requirements.txt",
   "version": "{{cookiecutter.version}}",
   "conda_channels": [],

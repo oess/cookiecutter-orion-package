@@ -1,4 +1,4 @@
-# (C) 2018 OpenEye Scientific Software Inc. All rights reserved.
+# (C) 2021 OpenEye Scientific Software Inc. All rights reserved.
 #
 # TERMS FOR USE OF SAMPLE CODE The software below ("Sample Code") is
 # provided to current licensees or subscribers of OpenEye products or
@@ -17,11 +17,11 @@
 
 from floe.api import WorkFloe
 from orionplatform.cubes import DatasetReaderCube, DatasetWriterCube
-from {{cookiecutter.module_name}}.mycube import MyCube
+from {{cookiecutter.module_name}}.example_cube import MyCube
 
 
 # Declare and document floe
-job = WorkFloe("my floe", title="My Floe")
+job = WorkFloe("Exemplary floe", title="Exemplary Floe")
 job.description = (
     "Outputs the input records unchanged unless the parameter is set to false, in which case nothing "
     "is outputted"

@@ -17,11 +17,11 @@
 
 from floe.api import WorkFloe
 from orionplatform.cubes import DatasetReaderCube, DatasetWriterCube
-from {{cookiecutter.module_name}}.mycube import MyCube
+from {{cookiecutter.module_name}}.example_cube import MyCube
 
 
 # Declare and document floe
-job = WorkFloe("my_floe", title="My Floe")
+job = WorkFloe("Exemplary floe", title="Exemplary Floe")
 job.description = (
     "Outputs the input records unchanged unless the parameter is set to false, in which case nothing "
     "is outputted"

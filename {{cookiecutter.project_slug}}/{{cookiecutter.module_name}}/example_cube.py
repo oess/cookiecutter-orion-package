@@ -23,7 +23,7 @@ class MyCube(RecordPortsMixin, ComputeCube):
     # Cube documentation.  This documentation for this cube, and all other cubes in this repository, can be converted
     # to html by calling 'invoke docs' from the root directory of this repository.  This documentation will also
     # appear in the Orion Floe editor.
-    title = "My Fancy Cube"
+    title = "My Cube"
     classification = [["Examples"]]
     tags = ["Example", "I didn't edit the tags"]
     description = "A cube that passes records to the success or failure port depending on the switch parameter"

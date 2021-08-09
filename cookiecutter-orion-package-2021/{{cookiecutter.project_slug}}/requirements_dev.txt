@@ -1,0 +1,6 @@
+-e .
+# Development requirements for {{cookiecutter.module_name}}. Production requirements go in setup.py
+
+invoke
+sphinx_rtd_theme
+

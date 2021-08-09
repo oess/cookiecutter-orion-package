@@ -44,10 +44,17 @@ Setup
 
 #. `Install cookiecutter`_, usually via running ``pip install cookiecutter``
 
-#. Run ``cookiecutter  gh:oess/cookiecutter-orion-package``
+#. If you have Orion version 2020.3.x, run:
+   ::
 
-    **Note:** running cookiecutter directly against the GitHub repository requires ``git`` to be locally installed. To install without requiring ``git``,
-    download the ZIP file from `GitHub`_ and run  ``cookiecutter cookiecutter-orion-package-master.zip``
+        cookiecutter  gh:oess/cookiecutter-orion-package
+
+#. If you have Orion version 2021.1.x, run:
+   ::
+
+        cookiecutter  gh:oess/cookiecutter-orion-package-2021
+         
+**Note:** running cookiecutter directly against the GitHub repository requires ``git`` to be locally installed. To install without requiring ``git``, download the ZIP file from `GitHub`_ and run  ``cookiecutter cookiecutter-orion-package-master.zip``
 
 #. This will generate a directory with the name you provided as the project_slug in the cookiecutter setup. Switch into the directory
 
@@ -75,20 +82,6 @@ Once all dependencies are installed, you should be able to use invoke to build a
 
     invoke package
 
-Documentation can be built via the following command:
-
-::
-
-    invoke docs
-
-[Throws error: cube_doc: command not found]
-A local webserver for the docs can be launched on port 8000 as follows:
-
-::
-
-    invoke serve-docs
-
-[Throws error: cube_doc: command not found]
 Tests are set up for the cube and floe that are included, they can be run locally:
 
 ::
@@ -139,20 +132,20 @@ upon completion::
     │       ├── conf.py
     │       └── index.rst
     ├── floes                                   <-- Subdirectory where all floes should be placed.
-    │   └── myfloe.py                           <-- An example floe.
+    │   └── example_floe.py                           <-- An example floe.
     ├── manifest.json                           <-- Manifest for Orion.
     ├── requirements_dev.txt                    <-- Requirements file for development of this package.
     ├── setup.py                                <-- Python file for creating a python package
     ├── tasks.py                                <-- Python file with defined tasks for building docs, running tests, and building the package.
     ├── tests                                   <-- Subdirectory for testing of cubes and floes.
     │   ├── floe_tests                          <-- Subdirectory for floe tests
-    │   │   └── test_myfloe.py                  <-- Example floe test to run locally or in Orion
+    │   │   └── test_example_floe.py            <-- Example floe test to run locally or in Orion
     │   ├── test_data
     │   │   └── 10.ism
-    │   └── test_mycube.py                      <-- An example unit test for the included cube.
+    │   └── test_example_cube.py                <-- An example unit test for the included cube.
     └── {{cookiecutter.module_name}}            <-- Subdirectory of the package for the python module. All cubes should go in here.
         ├── __init__.py
-        └── mycube.py                           <-- An example cube.
+        └── example_cube.py                     <-- An example cube.
 
 ..
 

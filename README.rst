@@ -54,8 +54,8 @@ Setup
    
         cookiecutter  gh:oess/cookiecutter-orion-package-2021
          
-    **Note:** running cookiecutter directly against the GitHub repository requires ``git`` to be locally installed. To install without requiring ``git``,
-    download the ZIP file from `GitHub`_ and run  ``cookiecutter cookiecutter-orion-package-master.zip``
+        **Note:** running cookiecutter directly against the GitHub repository requires ``git`` to be locally installed. To install without requiring ``git``,
+                  download the ZIP file from `GitHub`_ and run  ``cookiecutter cookiecutter-orion-package-master.zip``
 
 #. This will generate a directory with the name you provided as the project_slug in the cookiecutter setup. Switch into the directory
 

@@ -47,7 +47,7 @@ Setup
 #. If you have Orion version 2020.3.x:
    ::
 
-        run ``cookiecutter  gh:oess/cookiecutter-orion-package-orion2020``
+        run ``cookiecutter  gh:oess/cookiecutter-orion-package``
 
    If you have Orion version 2021.1.x:
     ::  

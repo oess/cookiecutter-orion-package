@@ -47,12 +47,12 @@ Setup
 #. If you have Orion version 2020.3.x:
    ::
 
-        run ``cookiecutter  gh:oess/cookiecutter-orion-package-orion2020``
+        run ``cookiecutter  gh:oess/cookiecutter-orion-package``
 
    If you have Orion version 2021.1.x:
     ::  
    
-        run ``cookiecutter  gh:oess/cookiecutter-orion-package-orion2021``
+        run ``cookiecutter  gh:oess/cookiecutter-orion-package-2021``
          
     **Note:** running cookiecutter directly against the GitHub repository requires ``git`` to be locally installed. To install without requiring ``git``,
     download the ZIP file from `GitHub`_ and run  ``cookiecutter cookiecutter-orion-package-master.zip``

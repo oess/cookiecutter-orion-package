@@ -1,0 +1,10 @@
+global-exclude *.pyc
+include README.md
+include manifest.json
+include orion-requirements.txt
+exclude requirements_dev.txt
+include setup.py
+graft floes
+prune tests
+prune docs
+graft package_docs

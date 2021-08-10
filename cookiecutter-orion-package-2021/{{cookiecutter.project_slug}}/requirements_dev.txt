@@ -1,0 +1,8 @@
+-e .
+# Development requirements for {{cookiecutter.module_name}}. Production requirements go in setup.py
+
+openeye-floe-pkg-tools
+pytest
+invoke
+sphinx_rtd_theme
+

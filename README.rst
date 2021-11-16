@@ -1,6 +1,8 @@
 OpenEye Cube/Floe Package CookieCutter Template
 ===============================================
 
+This repo is no longer supported. Please consult https://docs.eyesopen.com/orion-developer/development/create_new_package.html to learn about how to create a cookiecutter floe package template. 
+
 A `Cookiecutter`_ template for Orion packages containing Cubes and Floes.
 
 Support
